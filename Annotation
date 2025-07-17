@@ -1,0 +1,26 @@
+import java.lang.annotation.*;
+import java.lang.reflect.*;
+
+// Define annotation
+@Retention(RetentionPolicy.RUNTIME)
+@interface CourseInfo {
+    String instructor();
+    int duration();
+}
+
+// Annotate a class
+@CourseInfo(instructor = "Dr. Smith", duration = 30)
+class JavaCourse {}
+
+// Use reflection
+public class AnnotationDemo {
+    public static void main(String[] args) {
+        Class<JavaCourse> obj = JavaCourse.class;
+
+        if (obj.isAnnotationPresent(CourseInfo.class)) {
+            CourseInfo info = obj.getAnnotation(CourseInfo.class);
+            System.out.println("Instructor: " + info.instructor());
+            System.out.println("Duration: " + info.duration() + " days");
+        }
+    }
+}
